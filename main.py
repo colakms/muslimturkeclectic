@@ -53,7 +53,7 @@ class UnapprovedBlog(ndb.Model):
     created = ndb.DateTimeProperty(auto_now_add = True)
     last_modified = ndb.DateTimeProperty(auto_now = True)
     category = ndb.StringProperty(required=True, choices=set(["Algorithm", "Reflection", "Poem"]))
-    author = ndb.StringProperty(required=True, choices=set(["whitehood"]))
+    author = ndb.StringProperty(required=True)
 
     def as_dict(self):
         time_fmt = '%c'
@@ -72,7 +72,7 @@ class Blog(ndb.Model):
     created = ndb.DateTimeProperty(auto_now_add = True)
     last_modified = ndb.DateTimeProperty(auto_now = True)
     category = ndb.StringProperty(required=True, choices=set(["Algorithm", "Reflection", "Poem"]))
-    author = ndb.StringProperty(required=True, choices=set(["whitehood"]))
+    author = ndb.StringProperty(required=True)
 
     def as_dict(self):
         time_fmt = '%c'
@@ -352,16 +352,14 @@ class ArchiveHandler(MainPage):
         raw_archives = ndb.gql("SELECT * FROM Blog ORDER BY created DESC")
         archives = raw_archives.iter()
 
-        y2014 = []
+        y2015 = []
         #y2015 = []
         #y2016 = []
 
         for a in archives:
-            if a.created.year == 2014:
-                y2014 += [a]
-            """elif a.created.year == 2015:
+            if a.created.year == 2015:
                 y2015 += [a]
-            elif a.created.year == 2016:
+            """elif a.created.year == 2016:
                 y2016 += [a]"""
 
         winter = []
@@ -369,7 +367,7 @@ class ArchiveHandler(MainPage):
         summer = []
         fall = []
 
-        for p in y2014:
+        for p in y2015:
             if p.created.month == 1 or p.created.month == 2 or p.created.month == 12:
                 winter += [p]
             elif p.created.month == 3 or p.created.month == 4 or p.created.month == 5:
@@ -381,8 +379,8 @@ class ArchiveHandler(MainPage):
 
         #seasons14 = [winter, spring, summer, fall]
 
-        if self.request.url.endswith('2014'):
-            self.render_front(file_path, showcases=y2014)
+        if self.request.url.endswith('2015'):
+            self.render_front(file_path, showcases=y2015)
         elif self.request.url.endswith('winter'):
             self.render_front(file_path, showcases=winter)
         elif self.request.url.endswith('spring'):
@@ -589,4 +587,4 @@ app = webapp2.WSGIApplication([('/', MainPage),
                                ('/register', RegisterHandler),
                                ('/login', Login),
                                ('/json', JsonHandler)
-], debug=False)
+], debug=True)
