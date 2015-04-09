@@ -1,0 +1,392 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Muslim, Turk And Eclectic</title>
+<meta name="keywords" content="" />
+<meta name="description" content="Muslim, Turk And Eclectic by Victor Whitehood" />
+<link href="stylesheets/templatemo_style.css" rel="stylesheet" type="text/css" />
+<link rel="stylesheet" type="text/css" href="stylesheets/tabcontent.css" />
+<script type="text/javascript" src="javascript/tabcontent.js">
+/***********************************************
+* Tab Content script v2.2- © Dynamic Drive DHTML code library (www.dynamicdrive.com)
+* This notice MUST stay intact for legal use
+* Visit Dynamic Drive at http://www.dynamicdrive.com/ for full source code
+***********************************************/
+</script>
+</head>
+<body>
+
+	<div id="templatemo_header_panel">
+		<div id="templatemo_title_section">
+				<div class="title1"><h1 style="color: #4C0000;">Muslim, Turk And Eclectic</h1></div>
+		</div>
+	</div> <!-- end of templatemo header panel -->
+
+	<div id="templatemo_menu_panel">
+		<div id="templatemo_menu_section">
+			<ul>
+				<li><a href="/">Home</a></li>
+				<li><a href="/newpost">New Post</a></li>
+				<li><a href="/author?author=whitehood">About</a></li>
+				<li><a href="mailto:victor.whitehood@outlook.com">Contact</a></li>
+			</ul>
+			</div>
+		 </div> <!-- end of menu -->
+
+	<div id="templatemo_content_container">
+		<div id="templatemo_content">
+			<div id="templatemo_content_left">
+				{% if showcases %}
+				{% for showcase in showcases %}
+				<div class="templatemo_post_wrapper">
+				<div class="templatemo_post">
+					<div class="post_title">
+						<a href="/subject?subject={{showcase.url}}">{{showcase.title}}</a>
+					</div>
+					<div class="post_info">
+						Posted by <a href="/author?author=whitehood">{{showcase.author}}</a>, Category: <a href ="/categories?category={{showcase.category.lower()}}s">{{showcase.category}}</a>, {{showcase.created.strftime('%c')}}, <a href="/subject?subject={{showcase.url}}.json">JSON</a> <br>
+					</div>
+					<div class="post_body">
+						<pre class="post_content">{{showcase.blog}}</pre>
+					</div>
+				</div>
+				</div> <!-- End of a post-->
+				{%endfor%}
+				{% elif showcase %}
+				<div class="templatemo_post_wrapper">
+				<div class="templatemo_post">
+					<div class="post_title">
+						{{showcase.title}}
+					</div>
+					<div class="post_info">
+						Posted by <a href="/author?author=whitehood">{{showcase.author}}</a>, Category: <a href ="/categories?category={{showcase.category.lower()}}s">{{showcase.category}}</a>, {{showcase.created.strftime('%c')}}, <a href="/subject?subject={{showcase.url}}.json">JSON</a><br>
+					</div>
+					<div class="post_body">
+						<pre name="content" class="post_content">{{showcase.blog}}</pre>
+					</div>
+					<form class="permalink_form" method="post">
+						<input name="id" type="hidden" value="{{showcase.key.id()}}">
+						<input class="button" type="submit" value="Update">
+					</form>
+					<br/>
+					<label class="comments_headline">Comments:
+						<input id="comments" class="plus-button" type="button" value="+">
+					</label>
+					<div id="comment_wrapper">
+					{% for comment in comments %}
+					  <div class="post_info">
+						Posted by <a style="color: #990000;">{{comment.author}}</a>, Category: <a style="color: #990000;">Comment</a>, {{comment.created.strftime('%c')}} <br>
+					</div>
+					<div class="post_body">
+						<pre class="post_content">{{comment.comment}}</pre>
+					</div>
+					{% endfor %}
+					</div>
+					<hr class="line"">
+					<label class="comments_headline">New Comment:
+						<input id="newcomment" class="plus-button" type="button" value="+">
+					</label>
+					<hr class="line">
+					<form id="comment_form" action="/comment" method="post"  >
+						<label style="font-size:16px;">Name: <br/>
+							<input id="comment_inputfield" class="inputfield" name="fullname" type="text" value="{{fullname}}">
+						</label>
+						<br/>
+						<label style="font-size:16px;">Comment: <br/>
+							<textarea id="comment_content" class="content" style="width: 300px; height: 90px; background-color: rgb(250, 255, 189);" name="comment_content" style="width=350px; height=200px;">{{comment_content}}</textarea>
+						</label>
+						<br/>
+						<input name="post_title" type="hidden" value="{{showcase.title}}">
+						<input id="comment_button" class="button" type="submit" value="Submit">
+					</form>
+				</div>
+				</div> <!-- End of a post-->
+				{% elif post_notification %}
+				{% for post in posts %}
+				<div class="templatemo_post_wrapper">
+				<div class="templatemo_post">
+					<div class="post_title">
+						<a href="/subject?subject={{post.url}}">{{post.title}}</a>
+					</div>
+					<div class="post_info">
+						Posted by <a href="/author?author=whitehood">{{post.author}}</a>, Category: <a href ="/categories?category={{post.category.lower()}}s">{{post.category}}</a>, {{post.created.strftime('%c')}}, <a href="/subject?subject={{post.url}}.json">JSON</a> <br>
+					</div>
+					<div class="post_body">
+						<pre class="post_content">{{post.blog}}</pre>
+					</div>
+					<form class="post_approval_form" action="/postapproval" method="get">
+						<input name="title" type="hidden" value="{{post.title}}">
+						<input name="content" type="hidden" value="{{post.blog}}">
+						<input name="category" type="hidden" value="{{post.category}}">
+						<input name="author" type="hidden" value="{{post.author}}">
+						<input class="button" type="submit" value="Approve">
+					</form>
+					<form class="post_approval_form" action="/postapproval" method="get">
+						<input name="title" type="hidden" value="{{post.title}}">
+						<input class="button" type="submit" value="Delete">
+					</form>
+				</div>
+				</div> <!-- End of a post-->
+				{%endfor%}
+				{% elif comment_notification %}
+				{% for comment in comments %}
+				<div class="templatemo_post_wrapper">
+				<div class="templatemo_post">
+					<div class="post_title">
+						<a href="/subject?subject={{comment.url}}">{{comment.post_title}}</a>
+					</div>
+					<div class="post_info">
+						Posted by <a href="#">{{comment.author}}</a>, Category: <a href ="#">Comment</a>, {{comment.created.strftime('%c')}}<br>
+					</div>
+					<div class="post_body">
+						<pre class="post_content">{{comment.comment}}</pre>
+					</div>
+					<form class="comment_approval_form" action="/commentapproval" method="get">
+						<input name="fullname" type="hidden" value="{{comment.author}}">
+						<input name="comment_content" type="hidden" value="{{comment.comment}}">
+						<input name="post_title" type="hidden" value="{{comment.post_title}}">
+						<input class="button" type="submit" value="Approve">
+					</form>
+					<form class="comment_approval_form" action="/commentapproval" method="get">
+						<input name="post_title" type="hidden" value="{{comment.post_title}}">
+						<input class="button" type="submit" value="Delete">
+					</form>
+				</div>
+				</div> <!-- End of a post-->
+				{%endfor%}
+				{% elif update_notification%}
+				<div class="templatemo_post_wrapper">
+				<div class="templatemo_post">
+				<form method="post">
+					<input class="inputfield" name="title" type="text" value="{{title}}">
+					<label style="font-size: 16px;">Category:
+					<select class="selectfield" title="Category" name="category" >
+					  {% if category == "Algorithm" %}
+					  <option value="Algorithm" selected>Algorithm</option>
+					  <option value="Poem">Poem</option>
+					  <option value="Reflection">Reflection</option>
+					  {% elif category == "Poem" %}
+					  <option value="Algorithm">Algorithm</option>
+					  <option value="Poem" selected>Poem</option>
+					  <option value="Reflection">Reflection</option>
+					  {% elif category == "Reflection" %}
+					  <option value="Algorithm">Algorithm</option>
+					  <option value="Poem">Poem</option>
+					  <option value="Reflection" selected>Reflection</option>
+					  {% else %}
+					  <option value="Algorithm">Algorithm</option>
+					  <option value="Poem">Poem</option>
+					  <option value="Reflection">Reflection</option>
+					  {% endif %}
+					</select>
+					</label>
+					<label style="font-size: 16px;">Author:
+					<input class="inputfield" type="text" name="author" style="width: 82px; height: 18px; padding: 0; margin:2px;">
+					</label>
+					<textarea class="content" name="content" style="width: 500px; height: 290px;">{{blog}}</textarea>
+					<br>
+					<input type="hidden" name="id" value="{{id}}">
+					<input class="button" type="submit" value="Submit"> <h2 style="font-size: 14px; color: black; ">{{error_message}}</h2>
+				</form>
+				</div>
+				</div>
+				{% elif the_category %}
+				{% for showcase in the_category %}
+				<div class="templatemo_post_wrapper">
+					<div class="templatemo_post">
+					<div class="post_title">
+						<a href="/subject?subject={{showcase.url}}">{{showcase.title}}</a>
+					</div>
+					<div class="post_info">
+						Posted by <a href="/author?author=whitehood">{{showcase.author}}</a>, Category: <a href ="/categories?category={{showcase.category.lower()}}s">{{showcase.category}}</a>, {{showcase.created.strftime('%c')}}, <a href="/subject?subject={{showcase.url}}.json">JSON</a> <br>
+					</div>
+					<div class="post_body">
+						<pre name="content" class="post_content">{{showcase.blog}}</pre>
+					</div>
+				</div>
+				</div> <!-- End of a post-->
+				{% endfor %}
+				{% elif login_notification %}
+				<div class="templatemo_post_wrapper">
+				<div class="templatemo_post">
+					<h2 style="color: black;">Author Login</h2>
+					<form class="login_form" method="post">
+					  <table>
+						<tr>
+						  <td class="label">
+							Username
+						  </td>
+						  <td>
+							<input class="inputfield" type="text" name="username" value="{{username}}">
+						  </td>
+						</tr>
+
+						<tr>
+						  <td class="label">
+							Password
+						  </td>
+						  <td>
+							<input class="inputfield" type="password" name="password" value="">
+						  </td>
+						</tr>
+					  </table>
+
+					  <div class="error">
+						{{login_error}}
+					  </div>
+					  <input type="hidden" name="referer" value="{{referer}}">
+					  <input class="button" type="submit">
+					</form>
+				</div>
+				</div>
+				{% elif author %}
+				<h3 style="font-size: 17px;">Whitehood Jr.</h3>
+				<p style="text-align:center;"><img class="photo" src="stylesheets/images/profilepic.jpg" style="width:140px;max-height:280px" alt="My Photo"></a></p>
+				<h2 style="font-size: 15px;">About me</h2>
+				<table>
+				<h2 style="font-size: 14px;">Gender: <a style="font-size: 14px;" href="#">Male</a></h2>
+				<h2 style="font-size: 14px;">Occupation: <a href="#" style="font-size: 14px;">Thinker</a> </h2>
+				<h2 style="font-size: 14px;">Introduction: <a href="#" style="font-size: 14px;">I am an elementary thinker. Here what you see is arbitrary products of my mind.</a></h2>
+				<h2 style="font-size: 14px;">Interests: <a href="#" style="font-size: 14px;"> Coffee &amp; Conversation</a> </h2>
+				<h2 style="font-size: 14px;">Favorite Movies: <a href="#" style="font-size: 14px;">The Lord of the Rings Trilogy</a> </h2>
+				<h2 style="font-size: 14px;">Favorite Books: <a href="#" style="font-size: 14px;">The Silmarillion</a> </h2>
+				<a style="font-size: 14px;" href="mailto:victor.whitehood@outlook.com">Contact me</a>
+				</table>
+				{% endif %}
+			</div> <!-- end of content left -->
+
+			<div id="templatemo_content_right">
+
+				<div class="templatemo_right_section">
+					<div class="tag_section">
+						<ul id="countrytabs" class="shadetabs">
+							<li><a href="#" rel="search" class="selected">Search</a></li>
+							<li><a href="#" rel="category">Category</a></li>
+							<li><a href="#" rel="archive">Archive</a></li>
+						</ul>
+					</div>
+
+					<div class="tabcontent_section">
+						<div id="search" class="tabcontent">
+							 <form class="right_form" method="get" action="/search">
+								<input class="inputfield" name="searchkeyword" type="text"/>
+								<input type="submit" name="submit" class="button" value="Search" />
+							</form>
+						</div>
+
+
+						<div id="category" class="tabcontent">
+							<ul>
+								<li><a href="categories?category=all">All Posts</a></li>
+								<div class="link_table" style="padding-left: 10px; padding-top: 5px;">
+									<li><a href="/categories?category=algorithms">Algorithms</a></li>
+									<li><a href="/categories?category=poems">Poems</a></li>
+									<li><a href="/categories?category=reflections">Reflections</a></li>
+								</div>
+							</ul>
+						</div>
+
+						<div id="archive" class="tabcontent">
+							<ul>
+								<li><a href="/archive?year=2014">2014</a></li>
+								<ul>
+									<li><a href="/archive?year2014&season=winter">Winter</a></li>
+									<li><a href="/archive?year2014&season=spring">Spring</a></li>
+									<li><a href="/archive?year2014&season=summer">Summer</a></li>
+									<li><a href="/archive?year2014&season=fall">Fall</a></li>
+								</ul>
+							</ul>
+						</div>
+						</div>
+					</div>
+
+					<script type="text/javascript">
+
+					var countries=new ddtabcontent("countrytabs")
+					countries.setpersist(true)
+					countries.setselectedClassTarget("link") //"link" or "linkparent"
+					countries.init()
+
+					</script> <!--- end of tag -->
+
+
+
+				<div class="templatemo_right_section">
+					<h2>Recent Posts</h2>
+					<ul>
+						<html>{{permalink_list|safe}}</html>
+					</ul>
+				</div>
+
+				<div class="templatemo_right_section">
+					<h2>Archives</h2>
+					<ul>
+						<li><a href="/archive?year=2014">2014</a></li>
+						<ul>
+							<li><a href="/archive?year=2014&season=winter">Winter</a></li>
+							<li><a href="/archive?year=2014&season=spring">Spring</a></li>
+							<li><a href="/archive?year=2014&season=summer">Summer</a></li>
+							<li><a href="/archive?year=2014&season=fall">Fall</a></li>
+						</ul>
+					</ul>
+				</div>
+
+				<div class="templatemo_right_section">
+					<h2>Category</h2>
+					<ul>
+						<div class="link_table" style="padding-left: 10px; padding-top: 5px;">
+							<li><a href="/categories?category=algorithms">Algorithms</a></li>
+							<li><a href="/categories?category=poems">Poems</a></li>
+							<li><a href="/categories?category=reflections">Reflections</a></li>
+						</div>
+					</ul>
+				</div>
+
+			</div> <!-- end of right content -->
+		</div> <!-- end of content -->
+	</div> <!-- end of content container -->
+
+	<div id="templatemo_bottom_panel">
+		<div id="templatemo_bottom_section">
+			<!-- <div class="templatemo_bottom_section_content">
+				<h3>Partner Links</h3>
+				<ul>
+
+				</ul>
+			</div> -->
+
+			<div class="templatemo_bottom_section_content">
+				<h3>Other Links</h3>
+				 <ul>
+					<li><a href="/json">Json</a></li>
+					<li><a href="#">Privacy</a></li>
+					<li><a href="/author?author=whitehood">About</a></li>
+					<li><a href="mailto:victor.whitehood@outlook.com">Contact</a></li>
+				</ul>
+			</div>
+
+			<div class="templatemo_bottom_section_content">
+				<h3>About this blog</h3>
+				<p>
+				<p style='font-size:18px;'>Algorithms, Poems, Reflections </p>
+				<p style='font-size:16px;'><i>Improvising on and on ad infinitum!</i> </p>
+				</p>
+		   </div>
+			<div class="templatemo_bottom_section_content">
+				<h3>Whitehood Jr.</h3>
+				<p style="padding-left: 20px;"><img class="photo" src="stylesheets/images/profilepic.jpg" style="width:110px;max-height:220px"></a></p>
+			</div>
+
+		</div>
+	</div> <!-- end of templatemo bottom panel -->
+
+	<div id="templatemo_footer_panel">
+		<div id="templatemo_footer_section">
+			Victor Whitehood © 2015 | <a href="mailto:victor.whitehood@outlook.com">Muslim, Turk And Eclectic</a>
+		</div>
+	</div>
+<script src="javascript/jquery-1.11.1.min.js"></script>
+<script src="javascript/application.js"></script>
+</body>
+</html>
